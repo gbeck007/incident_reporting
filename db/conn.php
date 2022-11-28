@@ -1,14 +1,13 @@
 <?php 
-// $host = "127.0.0.1";
-// $db = "incident_db";
-// $user = "root";
-// $pass = '';
-// $charset = "utf8mb4";
+ //$host = "127.0.0.1";
+ //$db = "incident_db";
+ //$user = "root";
+ //$pass = '';
+ //$charset = "utf8mb4";
 
 
 //Hosting
 $host = 'applied-web.mysql.database.azure.com';
-//$db = 'glassford_beckford_incident_db';
 $db = 'glassford_beckford_incident_report';
 $user = 'appliedweb_user@applied-web';
 $pass = 'P@ssword1';
@@ -29,5 +28,5 @@ require_once 'user.php';
  $crud = new crud($pdo);
  $user = new user($pdo);
 
- //$user->insertUser("gbeckford", "password");
+ //$user->insertUser("gbeckford", "password", "admin");
 ?>

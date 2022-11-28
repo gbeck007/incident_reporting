@@ -10,7 +10,7 @@
          }                          
     
          
-         public function insertUser($username,$password){
+         public function insertUser($username,$password,$ugroup){
             try {  
                   
                 $result = $this->getUserbyUsername($username);
@@ -22,7 +22,7 @@
                     $new_password = md5($password.$username);
 
                      //define sql statement to be executed
-                $sql = "INSERT INTO users (username, password) VALUES (:username,:password)";
+                $sql = "INSERT INTO users (username, password, usergroup) VALUES (:username,:password,:usergroup)";
 
                 //prepare the sql statement for execution
                 $stmt = $this->db->prepare($sql);
@@ -30,6 +30,7 @@
                 //bind all placeholders to the actual values
                 $stmt->bindparam(':username',$username);
                 $stmt->bindparam(':password',$new_password);
+                $stmt->bindparam(':usergroup',$ugroup);
                 
                 //execute statement
                 $stmt->execute();
@@ -66,6 +67,24 @@
             try {
                 echo "getiing user by username: " ;
                 $sql = "select count(*) as num FROM users WHERE username = :username";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindparam(':username', $username);
+            
+            $stmt->execute();
+            $result = $stmt->fetch();
+            return $result;
+            
+        } catch (PDOException $e) {
+                echo $e->getMessage();
+                return false;
+            }
+
+         }
+
+         public function getUserGroup($username){
+            try {
+                echo "getiing user group by username: " ;
+                $sql = "select usergroup FROM users WHERE username = :username";
             $stmt = $this->db->prepare($sql);
             $stmt->bindparam(':username', $username);
             
